@@ -1,0 +1,37 @@
+{
+	"version": "1",
+	"information": {
+		"name": "wfirma",
+		"displayName": "wFirma.pl integration",
+		"description": "Synchronizes customers and invoices with Polish invoicing system wFirma.pl",
+		"url": "https://github.com/jacekkow/ucrm-wfirma",
+		"version": "1.0",
+		"ucrmVersionCompliancy": {
+			"min": "3.4.3",
+			"max": null
+		},
+		"unmsVersionCompliancy": {
+			"min": "1.0.0-dev.1",
+			"max": null
+		},
+		"author": "Jacek Kowalski"
+	},
+	"configuration": [
+		{
+			"key": "wfirma_username",
+			"label": "wFirma.pl username"
+		},
+		{
+			"key": "wfirma_password",
+			"label": "wFirma.pl password"
+		},
+		{
+			"key": "wfirma_series_invoice",
+			"label": "wFirma.pl series ID for invoices"
+		},
+		{
+			"key": "wfirma_series_proforma",
+			"label": "wFirma.pl series ID for proforma"
+		}
+	]
+}
