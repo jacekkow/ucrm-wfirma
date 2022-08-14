@@ -78,7 +78,8 @@ class InvoiceSynchronizer {
 
 		$wFirmaContractorId = $this->getContractorId($invoiceData['clientId']);
 		$payment = Invoices\Payment::create(
-			Payments\PaymentMethod::transfer()
+			Payments\PaymentMethod::transfer(),
+			new \DateTime($invoiceData['dueDate'])
 		);
 
 		if ($wFirmaId) {
@@ -103,6 +104,12 @@ class InvoiceSynchronizer {
 
 		/** @var \Webit\WFirmaSDK\Invoices\Invoice $invoice */
 		$changed = FALSE;
+
+		if ($invoice->payment()->paymentMethod() != $payment->paymentMethod()
+			|| $invoice->payment()->paymentDate() != $payment->paymentDate()) {
+			$invoice->changePayment($payment);
+			$changed = TRUE;
+		}
 
 		if ($invoice->priceType() != Invoices\PriceType::brutto()) {
 			$invoice->changePriceType(Invoices\PriceType::brutto());
