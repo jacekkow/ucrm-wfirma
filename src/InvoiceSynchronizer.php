@@ -6,15 +6,7 @@ use \Webit\WFirmaSDK\Contractors as Contractors;
 use \Webit\WFirmaSDK\Invoices as Invoices;
 use \Webit\WFirmaSDK\Payments as Payments;
 
-class InvoiceSynchronizer {
-	protected $wfirma;
-	protected $helper;
-
-	function __construct(\Webit\WFirmaSDK\Entity\ModuleApiFactory $wFirmaApi, UcrmHelper $ucrmHelper) {
-		$this->wfirma = $wFirmaApi;
-		$this->helper = $ucrmHelper;
-	}
-
+class InvoiceSynchronizer extends Synchronizer {
 	function getContractorId($clientId, $synchronize = TRUE) {
 		if ($synchronize) {
 			$synchronizer = new ContractorSynchronizer($this->wfirma, $this->helper);
@@ -55,7 +47,7 @@ class InvoiceSynchronizer {
 			[$c2->name(), $c2->unit(), $c2->count(), $c2->price(), $c2->vat(), $c2->discount()];
 	}
 
-	function synchronize($ucrmInvoiceId) {
+	function synchronize(int $ucrmInvoiceId) {
 		$crm = $this->helper->getApi();
 		$wFirmaInvoices = $this->wfirma->invoicesApi();
 

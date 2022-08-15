@@ -5,16 +5,8 @@ namespace SIPL\UCRM\wFirma;
 use \Webit\WFirmaSDK\Contractors as Contractors;
 use \Webit\WFirmaSDK\Payments as Payments;
 
-class ContractorSynchronizer {
-	protected $wfirma;
-	protected $helper;
-
-	function __construct(\Webit\WFirmaSDK\Entity\ModuleApiFactory $wFirmaApi, UcrmHelper $ucrmHelper) {
-		$this->wfirma = $wFirmaApi;
-		$this->helper = $ucrmHelper;
-	}
-
-	function synchronize($ucrmClientId) {
+class ContractorSynchronizer extends Synchronizer {
+	function synchronize(int $ucrmClientId) {
 		$crm = $this->helper->getApi();
 		$wFirmaContractors = $this->wfirma->contractorsApi();
 

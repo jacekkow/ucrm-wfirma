@@ -5,14 +5,11 @@ namespace SIPL\UCRM\wFirma;
 use \Webit\WFirmaSDK\Invoices as Invoices;
 use \Webit\WFirmaSDK\Payments as Payments;
 
-class PaymentSynchronizer {
-	protected $wfirma;
-	protected $helper;
+class PaymentSynchronizer extends Synchronizer {
 	protected $ucrmMainDir;
 
 	function __construct(\Webit\WFirmaSDK\Entity\ModuleApiFactory $wFirmaApi, UcrmHelper $ucrmHelper) {
-		$this->wfirma = $wFirmaApi;
-		$this->helper = $ucrmHelper;
+		parent::__construct($wFirmaApi, $ucrmHelper);
 
 		$backtrace = debug_backtrace();
 		$backtrace = end($backtrace);
@@ -27,7 +24,7 @@ class PaymentSynchronizer {
 			[$p2->objectName(), $p2->objectId(), $p2->amount()->value(), $p2->date()->format('Y-m-d'), $p2->paymentMethod()];
 	}
 
-	function synchronize($ucrmPaymentId) {
+	function synchronize(int $ucrmPaymentId) {
 		$crm = $this->helper->getApi();
 		$wFirmaPaymentsApi = $this->wfirma->paymentsApi();
 

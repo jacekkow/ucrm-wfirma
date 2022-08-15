@@ -26,10 +26,18 @@ try {
 		die();
 	}
 
-	if ($synchronizer->synchronize($event['entityId'])) {
-		echo 'Object synchronized';
+	if ($event['changeType'] === 'delete') {
+		if($synchronizer->delete($event['extraData']['entity'])) {
+			echo 'Object deleted';
+		} else {
+			echo 'Nothing to do';
+		}
 	} else {
-		echo 'Nothing to do';
+		if ($synchronizer->synchronize($event['entityId'])) {
+			echo 'Object synchronized';
+		} else {
+			echo 'Nothing to do';
+		}
 	}
 } catch (Exception $e) {
 	header('HTTP/1.1 500 Internal Server Error');
