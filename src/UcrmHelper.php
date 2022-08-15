@@ -78,13 +78,13 @@ class UcrmHelper {
 					throw new \RuntimeException('Failed to process event - invalid entity ID');
 				}
 
-				$this->event = $data;
-			} catch (\Exception $e) {
+				$this->event = $event;
+			} catch (\Throwable $e) {
 				$this->event = $e;
 			}
 		}
 
-		if ($this->event instanceof \Exception) {
+		if ($this->event instanceof \Throwable) {
 			throw $this->event;
 		}
 
