@@ -170,4 +170,37 @@ class PaymentSynchronizer extends Synchronizer {
 
 		return $changed;
 	}
+
+	function delete(array $paymentData) {
+		$wFirmaPaymentsApi = $this->wfirma->paymentsApi();
+		$paymentAttributeId = $this->helper->getAttributes()->getIdForCode('payment');
+
+		$wFirmaIds = '';
+		foreach ($paymentData['attributes'] as $attribute) {
+			if ($attribute['customAttributeId'] === $paymentAttributeId) {
+				$wFirmaIds = $attribute['value'];
+			}
+		}
+		if (strlen($wFirmaIds) > 0) {
+			$wFirmaIds = explode(',', $wFirmaIds);
+		} else {
+			$wFirmaIds = [];
+		}
+
+		$changed = FALSE;
+
+		foreach($wFirmaIds as $wFirmaId) {
+			try {
+				$payment = $wFirmaPaymentsApi->get(
+					Payments\PaymentId::create($wFirmaId)
+				);
+				$wFirmaPaymentsApi->delete($payment->id());
+				$changed = TRUE;
+			} catch(\Webit\WFirmaSDK\Entity\Exception\NotFoundException $e) {
+				// do nothing
+			}
+		}
+
+		return $changed;
+	}
 }
