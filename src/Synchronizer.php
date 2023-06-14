@@ -3,19 +3,27 @@
 namespace SIPL\UCRM\wFirma;
 
 abstract class Synchronizer {
-	protected $wfirma;
-	protected $helper;
+	protected \Webit\WFirmaSDK\Entity\ModuleApiFactory $wfirma;
+	protected UcrmHelper $helper;
 
 	function __construct(\Webit\WFirmaSDK\Entity\ModuleApiFactory $wFirmaApi, UcrmHelper $ucrmHelper) {
 		$this->wfirma = $wFirmaApi;
 		$this->helper = $ucrmHelper;
 	}
 
-	public function synchronize(int $entityId) {
+	/**
+	 * @param int $entityId
+	 * @return bool TRUE if anything was modified, FALSE otherwise
+	 */
+	public function synchronize(int $entityId): bool {
 		return FALSE;
 	}
 
-	public function delete(array $entity) {
+	/**
+	 * @param array $entity
+	 * @return bool TRUE if anything was deleted, FALSE otherwise
+	 */
+	public function delete(array $entity): bool {
 		return FALSE;
 	}
 }

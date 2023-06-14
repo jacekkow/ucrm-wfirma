@@ -3,7 +3,7 @@
 namespace SIPL\UCRM\wFirma;
 
 class wFirmaApiFactory {
-	protected $ucrmHelper;
+	protected UcrmHelper $ucrmHelper;
 
 	function __construct(UcrmHelper $ucrmHelper) {
 		$this->ucrmHelper = $ucrmHelper;

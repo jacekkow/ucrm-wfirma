@@ -2,8 +2,8 @@
 
 namespace SIPL\UCRM\wFirma;
 
-use \Webit\WFirmaSDK\Invoices as Invoices;
-use \Webit\WFirmaSDK\Payments as Payments;
+use Webit\WFirmaSDK\Invoices as Invoices;
+use Webit\WFirmaSDK\Payments as Payments;
 
 class PaymentSynchronizer extends Synchronizer {
 	protected $ucrmMainDir;
@@ -14,17 +14,17 @@ class PaymentSynchronizer extends Synchronizer {
 		$backtrace = debug_backtrace();
 		$backtrace = end($backtrace);
 		// (...)/web/_plugins/wfirma/public.php
-		$this->ucrmMainDir = dirname(dirname(dirname(dirname($backtrace['file']))));
+		$this->ucrmMainDir = dirname($backtrace['file'], 4);
 	}
 
-	function comparePayment(Payments\Payment $p1, Payments\Payment $p2) {
+	function comparePayment(Payments\Payment $p1, Payments\Payment $p2): int {
 		return
 			[$p1->objectName(), $p1->objectId(), $p1->amount()->value(), $p1->date()->format('Y-m-d'), $p1->paymentMethod()]
 			<=>
 			[$p2->objectName(), $p2->objectId(), $p2->amount()->value(), $p2->date()->format('Y-m-d'), $p2->paymentMethod()];
 	}
 
-	function synchronize(int $ucrmPaymentId) {
+	function synchronize(int $ucrmPaymentId): bool {
 		$crm = $this->helper->getApi();
 		$wFirmaPaymentsApi = $this->wfirma->paymentsApi();
 
@@ -171,7 +171,7 @@ class PaymentSynchronizer extends Synchronizer {
 		return $changed;
 	}
 
-	function delete(array $paymentData) {
+	function delete(array $paymentData): bool {
 		$wFirmaPaymentsApi = $this->wfirma->paymentsApi();
 		$paymentAttributeId = $this->helper->getAttributes()->getIdForCode('payment');
 

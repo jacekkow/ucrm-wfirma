@@ -3,8 +3,8 @@
 namespace SIPL\UCRM\wFirma;
 
 class UcrmPaymentMethods {
-	protected $api;
-	protected static $definition = [
+	protected \Ubnt\UcrmPluginSdk\Service\UcrmApi $api;
+	protected static array $definition = [
 		'Credit card' => '',
 		'Compensation' => '',
 	];
@@ -21,7 +21,7 @@ class UcrmPaymentMethods {
 		return self::$definition[$method];
 	}
 
-	function update() {
+	function update(): void {
 		$methods = $this->api->get('/payment-methods');
 		foreach ($methods as $method) {
 			if (isset(self::$definition[$method['name']])) {

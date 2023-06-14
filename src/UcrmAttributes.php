@@ -3,10 +3,10 @@
 namespace SIPL\UCRM\wFirma;
 
 class UcrmAttributes {
-	protected $attributesFile;
-	protected $api;
+	protected string $attributesFile;
+	protected \Ubnt\UcrmPluginSdk\Service\UcrmApi $api;
 
-	protected static $definition = [
+	protected static array $definition = [
 		'wFirma Customer ID' => [
 			'code' => 'client',
 			'type' => 'client',
@@ -20,7 +20,7 @@ class UcrmAttributes {
 			'type' => 'payment',
 		],
 	];
-	protected $ids = [];
+	protected array $ids = [];
 
 	function __construct(UcrmHelper $ucrmHelper) {
 		$this->attributesFile = $ucrmHelper->getRootDirectory() . '/data/attributes.json';
@@ -41,7 +41,7 @@ class UcrmAttributes {
 		return $this->ids[$attributeCode];
 	}
 
-	function updateMapping() {
+	function updateMapping(): bool {
 		$attributes = $this->api->get('/custom-attributes');
 		foreach ($attributes as $attribute) {
 			$data = self::$definition[$attribute['name']] ?? NULL;
@@ -71,7 +71,7 @@ class UcrmAttributes {
 		return $changed;
 	}
 
-	function saveMapping() {
+	function saveMapping(): void {
 		if (!is_dir(dirname($this->attributesFile))) {
 			mkdir(dirname($this->attributesFile));
 		}

@@ -2,12 +2,12 @@
 
 namespace SIPL\UCRM\wFirma;
 
-use \Webit\WFirmaSDK\Contractors as Contractors;
-use \Webit\WFirmaSDK\Invoices as Invoices;
-use \Webit\WFirmaSDK\Payments as Payments;
+use Webit\WFirmaSDK\Contractors as Contractors;
+use Webit\WFirmaSDK\Invoices as Invoices;
+use Webit\WFirmaSDK\Payments as Payments;
 
 class InvoiceSynchronizer extends Synchronizer {
-	function getContractorId($clientId, $synchronize = TRUE) {
+	protected function getContractorId($clientId, $synchronize = TRUE): ?Contractors\ContractorId {
 		if ($synchronize) {
 			$synchronizer = new ContractorSynchronizer($this->wfirma, $this->helper);
 			$synchronizer->synchronize($clientId);
@@ -29,7 +29,7 @@ class InvoiceSynchronizer extends Synchronizer {
 		return Contractors\ContractorId::create($wFirmaId);
 	}
 
-	function getTaxes() {
+	protected function getTaxes(): array {
 		$crm = $this->helper->getApi();
 		$taxesData = $crm->get('/taxes');
 
@@ -40,14 +40,14 @@ class InvoiceSynchronizer extends Synchronizer {
 		return $taxes;
 	}
 
-	function compareInvoicesContent(Invoices\InvoicesContent $c1, Invoices\InvoicesContent $c2) {
+	protected function compareInvoicesContent(Invoices\InvoicesContent $c1, Invoices\InvoicesContent $c2): int {
 		return
 			[$c1->name(), $c1->unit(), $c1->count(), $c1->price(), $c1->vat(), $c1->discount()]
 			<=>
 			[$c2->name(), $c2->unit(), $c2->count(), $c2->price(), $c2->vat(), $c2->discount()];
 	}
 
-	function synchronize(int $ucrmInvoiceId) {
+	function synchronize(int $ucrmInvoiceId): bool {
 		$crm = $this->helper->getApi();
 		$wFirmaInvoices = $this->wfirma->invoicesApi();
 
