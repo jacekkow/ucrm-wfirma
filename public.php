@@ -19,7 +19,7 @@ try {
 	} elseif ($event['entity'] === 'payment') {
 		$synchronizer = new \SIPL\UCRM\wFirma\PaymentSynchronizer($wFirmaApi, $helper);
 	} elseif ($event['entity'] === 'webhook') {
-		echo 'Webhook OK!';
+		echo 'Webhook OK! UCRM version: ' . $helper->getVersion();
 		die();
 	} else {
 		echo 'Nothing to do with entity ' . $event['entity'];

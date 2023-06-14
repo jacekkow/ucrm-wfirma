@@ -50,6 +50,11 @@ class UcrmHelper {
 		return $this->config;
 	}
 
+	function getVersion() {
+		$response = $this->getApi()->get('/version');
+		return $response['version'];
+	}
+
 	function getCurrentEvent() {
 		if ($this->event === NULL) {
 			try {
