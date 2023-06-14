@@ -79,7 +79,7 @@ class UcrmHelper {
 					throw new \RuntimeException('Failed to process event - event not found');
 				}
 
-				if (!is_int($event['entityId'])) {
+				if (!ctype_digit($event['entityId'])) {
 					throw new \RuntimeException('Failed to process event - invalid entity ID');
 				}
 

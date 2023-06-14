@@ -7,7 +7,7 @@
 		"url": "https://github.com/jacekkow/ucrm-wfirma",
 		"version": "1.1",
 		"ucrmVersionCompliancy": {
-			"min": "3.4.3",
+			"min": "4.0.0",
 			"max": null
 		},
 		"unmsVersionCompliancy": {
