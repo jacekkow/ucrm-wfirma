@@ -18,12 +18,16 @@
 	},
 	"configuration": [
 		{
-			"key": "wfirma_username",
-			"label": "wFirma.pl username"
+			"key": "wfirma_access_key",
+			"label": "wFirma.pl Access Key"
 		},
 		{
-			"key": "wfirma_password",
-			"label": "wFirma.pl password"
+			"key": "wfirma_secret_key",
+			"label": "wFirma.pl Secret Key"
+		},
+		{
+			"key": "wfirma_app_key",
+			"label": "wFirma App Key"
 		},
 		{
 			"key": "wfirma_series_invoice",

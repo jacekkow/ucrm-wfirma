@@ -11,7 +11,7 @@ class wFirmaApiFactory {
 
 	function create(): \Webit\WFirmaSDK\Entity\ModuleApiFactory {
 		$config = $this->ucrmHelper->getConfig();
-		$wFirmaAuth = new \Webit\WFirmaSDK\Auth\BasicAuth($config['wfirma_username'], $config['wfirma_password']);
+		$wFirmaAuth = new \Webit\WFirmaSDK\Auth\ApiKeysAuth($config['wfirma_access_key'], $config['wfirma_secret_key'], $config['wfirma_app_key']);
 
 		$wFirmaEntityApiFactory = new \Webit\WFirmaSDK\Entity\EntityApiFactory();
 		$wFirmaEntityApi = $wFirmaEntityApiFactory->create($wFirmaAuth);
