@@ -6,15 +6,8 @@ use Webit\WFirmaSDK\Invoices as Invoices;
 use Webit\WFirmaSDK\Payments as Payments;
 
 class PaymentSynchronizer extends Synchronizer {
-	protected $ucrmMainDir;
-
 	function __construct(\Webit\WFirmaSDK\Entity\ModuleApiFactory $wFirmaApi, UcrmHelper $ucrmHelper) {
 		parent::__construct($wFirmaApi, $ucrmHelper);
-
-		$backtrace = debug_backtrace();
-		$backtrace = end($backtrace);
-		// (...)/web/_plugins/wfirma/public.php
-		$this->ucrmMainDir = dirname($backtrace['file'], 4);
 	}
 
 	function comparePayment(Payments\Payment $p1, Payments\Payment $p2): int {
