@@ -2,6 +2,8 @@
 
 namespace SIPL\UCRM\wFirma;
 
+use Ubnt\UcrmPluginSdk\Service\UcrmOptionsManager;
+
 class UcrmHelper {
 	protected string $rootDirectory;
 	protected ?\Ubnt\UcrmPluginSdk\Service\UcrmApi $api = NULL;
@@ -26,6 +28,12 @@ class UcrmHelper {
 			$this->api = \Ubnt\UcrmPluginSdk\Service\UcrmApi::create($this->rootDirectory);
 		}
 		return $this->api;
+	}
+
+	function getSelfUrl(): string {
+		$ucrmOptionsManager = new UcrmOptionsManager($this->rootDirectory);
+		$options = $ucrmOptionsManager->loadOptions();
+		return $options->ucrmLocalUrl ?? $options->ucrmPublicUrl ?? '';
 	}
 
 	function getAttributes(): UcrmAttributes {

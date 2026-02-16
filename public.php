@@ -24,6 +24,9 @@ try {
 	} elseif ($event['entity'] === 'client') {
 		$synchronizer = new \SIPL\UCRM\wFirma\ContractorSynchronizer($wFirmaApi, $helper);
 	} elseif ($event['entity'] === 'invoice') {
+		$qrSync = new \SIPL\UCRM\wFirma\InvoiceQrCodeSynchronizer($helper);
+		$qrSync->synchronize($event['entityId'], $event['extraData']['entityBeforeEdit'] ?? null);
+
 		$synchronizer = new \SIPL\UCRM\wFirma\InvoiceSynchronizer($wFirmaApi, $helper);
 	} elseif ($event['entity'] === 'payment') {
 		$synchronizer = new \SIPL\UCRM\wFirma\PaymentSynchronizer($wFirmaApi, $helper);
