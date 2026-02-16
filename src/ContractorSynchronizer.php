@@ -48,6 +48,7 @@ class ContractorSynchronizer extends Synchronizer {
 
 		if ($contractor->nip() != $client['companyTaxId']) {
 			$changed = TRUE;
+			$contractor->changeTaxId(Contractors\TaxIdType::nip());
 			$contractor->changeNip($client['companyTaxId']);
 		}
 
