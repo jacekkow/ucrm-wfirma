@@ -12,7 +12,7 @@ class UcrmHelper {
 
 	function __construct(?string $rootDirectory = NULL) {
 		if ($rootDirectory === NULL) {
-			$rootDirectory = __DIR__ . '/..';
+			$rootDirectory = dirname(__DIR__);
 		}
 		$this->rootDirectory = $rootDirectory;
 	}
