@@ -15,6 +15,18 @@ class UcrmAttributes {
 			'code' => 'invoice',
 			'type' => 'invoice',
 		],
+		'KSeF Number' => [
+			'code' => 'ksef-number',
+			'type' => 'invoice',
+		],
+		'KSeF URL' => [
+			'code' => 'ksef-url',
+			'type' => 'invoice',
+		],
+		'KSeF QR Code' => [
+			'code' => 'ksef-qr-code',
+			'type' => 'invoice',
+		],
 		'wFirma Payment ID' => [
 			'code' => 'payment',
 			'type' => 'payment',
