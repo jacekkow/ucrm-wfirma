@@ -2,6 +2,17 @@
 require_once(__DIR__ . '/vendor/autoload.php');
 
 try {
+	if (isset($_GET['barcode'])) {
+		header('Content-Type: image/svg+xml');
+		echo (new \chillerlan\QRCode\QRCode(new \chillerlan\QRCode\QROptions([
+			'outputBase64' => false,
+			'addQuietzone' => false,
+			'drawLightModules' => false,
+			'connectPaths' => true,
+		])))->render($_GET['barcode']);
+		die();
+	}
+
 	$helper = new \SIPL\UCRM\wFirma\UcrmHelper();
 	$event = $helper->getCurrentEvent();
 
