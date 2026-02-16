@@ -2,8 +2,6 @@
 require_once(__DIR__ . '/vendor/autoload.php');
 
 try {
-	require_once(__DIR__ . '/hook_enable.php');
-
 	$helper = new \SIPL\UCRM\wFirma\UcrmHelper();
 	$event = $helper->getCurrentEvent();
 
