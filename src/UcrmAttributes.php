@@ -23,8 +23,8 @@ class UcrmAttributes {
 			'code' => 'ksef-url',
 			'type' => 'invoice',
 		],
-		'KSeF QR Code' => [
-			'code' => 'ksef-qr-code',
+		'QR Code Generator URL' => [
+			'code' => 'qr-code-gen-url',
 			'type' => 'invoice',
 		],
 		'wFirma Payment ID' => [
