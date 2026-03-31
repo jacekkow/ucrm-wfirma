@@ -3,6 +3,7 @@
 namespace SIPL\UCRM\wFirma;
 
 use Webit\WFirmaSDK\Contractors as Contractors;
+use Webit\WFirmaSDK\Contractors\ContactDetails;
 use Webit\WFirmaSDK\Payments as Payments;
 
 class ContractorSynchronizer extends Synchronizer {
@@ -93,6 +94,28 @@ class ContractorSynchronizer extends Synchronizer {
 				$changed = TRUE;
 				$contractor->changeContactAddress($contactAddress);
 			}
+		}
+
+		$email = NULL;
+		$phone = NULL;
+		foreach ($client['contacts'] as $contact) {
+			if ($contact['isContact']) {
+				$email = $contact['email'];
+				$phone = strtr($contact['phone'], ['+' => '00']);
+				break;
+			}
+		}
+
+		$contactDetails = new ContactDetails(
+			$phone,
+			$contractor->contactDetails()->skype(),
+			$contractor->contactDetails()->fax(),
+			$email,
+			$contractor->contactDetails()->url(),
+		);
+		if ($contractor->contactDetails() != $contactDetails) {
+			$changed = TRUE;
+			$contractor->changeContactDetails($contactDetails);
 		}
 
 		$paymentSettings = new Contractors\PaymentSettings(
